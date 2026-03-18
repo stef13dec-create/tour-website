@@ -65,8 +65,8 @@ export function Hero() {
         className="absolute inset-0 z-0"
       >
         <Image
-          src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/01_Chateau_Peles.jpg/1280px-01_Chateau_Peles.jpg"
-          alt="Peles Castle, Romania"
+          src="/athenaeum-hero.png"
+          alt="Romanian Athenaeum, Bucharest"
           fill
           className="object-cover object-center"
           priority
