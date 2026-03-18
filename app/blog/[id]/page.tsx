@@ -3,22 +3,42 @@ import { Footer } from "@/components/layout/Footer"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import { Metadata } from "next"
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  void id; // will be used when data is fetched dynamically
+  return {
+    title: "Top 10 Things to Do in Bucharest | Discover Romania with Corina",
+    description: "Bucharest, often called the Little Paris of the East, is a city of contrasts. Discover the top things to do for first-time visitors.",
+    openGraph: {
+      title: "Top 10 Things to Do in Bucharest for First-Time Visitors",
+      description: "Discover the top things to do in Bucharest — from the Palace of Parliament to the charming cobblestone streets of the Old Town.",
+      images: [{ url: "https://picsum.photos/seed/bucharest-blog/1920/1080" }],
+    },
+  }
+}
+
+type ContentBlock =
+  | { type: "paragraph"; text: string }
+  | { type: "heading"; text: string }
 
 export default async function BlogPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  
+  void id; // will be used when data is fetched dynamically
+
   // Mock data
   const post = {
     title: "Top 10 Things to Do in Bucharest for First-Time Visitors",
-    content: `
-      <p>Bucharest, often called the "Little Paris of the East," is a city of contrasts. From the massive Palace of Parliament to the charming cobblestone streets of the Old Town, there's something for everyone.</p>
-      <h2>1. Explore the Old Town (Centrul Vechi)</h2>
-      <p>Start your journey in the historic center. It's a vibrant mix of history, architecture, and nightlife. Don't miss the Stavropoleos Monastery, a stunning example of Brâncovenesc style.</p>
-      <h2>2. Visit the Palace of Parliament</h2>
-      <p>The second-largest administrative building in the world is a must-see. Its sheer scale and opulent interiors are a testament to Romania's complex past.</p>
-      <h2>3. Relax in Herastrau Park</h2>
-      <p>Escape the city bustle in this expansive park built around a large lake. Rent a boat, visit the Village Museum, or simply enjoy a coffee by the water.</p>
-    `,
+    content: [
+      { type: "paragraph", text: "Bucharest, often called the \"Little Paris of the East,\" is a city of contrasts. From the massive Palace of Parliament to the charming cobblestone streets of the Old Town, there's something for everyone." },
+      { type: "heading",   text: "1. Explore the Old Town (Centrul Vechi)" },
+      { type: "paragraph", text: "Start your journey in the historic center. It's a vibrant mix of history, architecture, and nightlife. Don't miss the Stavropoleos Monastery, a stunning example of Brâncovenesc style." },
+      { type: "heading",   text: "2. Visit the Palace of Parliament" },
+      { type: "paragraph", text: "The second-largest administrative building in the world is a must-see. Its sheer scale and opulent interiors are a testament to Romania's complex past." },
+      { type: "heading",   text: "3. Relax in Herastrau Park" },
+      { type: "paragraph", text: "Escape the city bustle in this expansive park built around a large lake. Rent a boat, visit the Village Museum, or simply enjoy a coffee by the water." },
+    ] as ContentBlock[],
     image: "https://picsum.photos/seed/bucharest-blog/1920/1080",
     date: "May 15, 2026",
     category: "City Guide",
@@ -64,10 +84,19 @@ export default async function BlogPostPage({ params }: { params: Promise<{ id: s
             />
           </div>
 
-          <div 
-            className="prose prose-invert prose-lg max-w-none prose-headings:font-serif prose-headings:font-light prose-h2:text-3xl prose-h2:mt-16 prose-h2:mb-8 prose-p:text-white/70 prose-p:font-light prose-p:leading-relaxed prose-a:text-white hover:prose-a:text-white/80 prose-a:underline-offset-4 prose-img:rounded-none"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <div className="space-y-8">
+            {post.content.map((block, i) =>
+              block.type === "heading" ? (
+                <h2 key={i} className="font-serif text-3xl font-light text-white mt-16 mb-4">
+                  {block.text}
+                </h2>
+              ) : (
+                <p key={i} className="text-white/70 font-light leading-relaxed text-lg">
+                  {block.text}
+                </p>
+              )
+            )}
+          </div>
         </div>
       </article>
 

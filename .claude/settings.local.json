@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:pin.it)",
+      "WebFetch(domain:api.pinterest.com)",
+      "WebFetch(domain:www.pinterest.com)",
+      "Read(//c/Users/Stefan/.claude/skills/skill-creator/**)",
+      "Bash(find '/c/Users/Stefan/Desktop/ANTIGRAVITY ASSETS/tour website' -type f \\\\\\(-name *.css -o -name *.scss \\\\\\))",
+      "Bash(grep -r \"console\\\\|TODO\\\\|FIXME\\\\|BUG\\\\|HACK\" '/c/Users/Stefan/Desktop/ANTIGRAVITY ASSETS/tour website/app' --include=*.tsx --include=*.ts)"
+    ],
+    "additionalDirectories": [
+      "c:\\Users\\Stefan\\Desktop\\ANTIGRAVITY ASSETS\\tour website\\.claude\\skills"
+    ]
+  }
+}

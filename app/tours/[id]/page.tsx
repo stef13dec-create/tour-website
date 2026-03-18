@@ -4,9 +4,25 @@ import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Clock, MapPin, Users, Star, Check, X, Calendar } from "lucide-react"
+import { Metadata } from "next"
+
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params;
+  void id; // will be used when data is fetched dynamically
+  return {
+    title: "Transylvania Castles & Legends | Discover Romania with Corina",
+    description: "Step into the heart of Transylvania and discover the legends that made Romania famous. Visit Peles Castle, Bran Castle, and medieval Brasov on this full-day tour.",
+    openGraph: {
+      title: "Transylvania Castles & Legends",
+      description: "Visit Peles Castle, Bran Castle, and medieval Brasov. Full-day guided tour from Bucharest with a licensed local expert.",
+      images: [{ url: "https://picsum.photos/seed/bran/1920/1080" }],
+    },
+  }
+}
 
 export default async function TourDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
+  void id; // will be used when data is fetched dynamically
   // In a real app, fetch data based on id
   const tour = {
     id: "transylvania-castles",
