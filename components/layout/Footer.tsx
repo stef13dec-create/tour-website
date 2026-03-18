@@ -1,12 +1,21 @@
 import Link from "next/link"
+import Image from "next/image"
 import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react"
 
 export function Footer() {
   return (
     <footer className="bg-[#050505] pt-32 pb-12 px-6 md:px-12 border-t border-white/5">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-16 mb-24">
-        <div className="col-span-1 md:col-span-2">
-          <h3 className="font-serif text-3xl font-light text-white mb-6">Corina</h3>
+        <div className="col-span-1 md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="mb-6">
+            <Image
+              src="/logo.png"
+              alt="Bucharest Tours by Corina"
+              width={440}
+              height={148}
+              className="h-24 w-auto md:h-28"
+            />
+          </div>
           <p className="text-white/50 max-w-md mb-10 font-light leading-relaxed">
             Premium guided tours in Romania. Discover the authentic beauty, rich history, and vibrant culture of Bucharest, Transylvania, and beyond with a licensed local expert.
           </p>

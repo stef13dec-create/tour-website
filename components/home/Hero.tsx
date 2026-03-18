@@ -33,7 +33,7 @@ const desktopConfigs: Record<string, { x: number; rotateY: number; scale: number
 const mobileConfigs: Record<string, { x: number; rotateY: number; scale: number; opacity: number; zIndex: number }> = {
   "-2": { x: -340, rotateY: 60, scale: 0.4,  opacity: 0,    zIndex: 0 },
   "-1": { x: -185, rotateY: 35, scale: 0.62, opacity: 0.5,  zIndex: 2 },
-   "0": { x: 0,    rotateY: 0,  scale: 2.3,  opacity: 1,    zIndex: 5 },
+   "0": { x: 0,    rotateY: 0,  scale: 1.8,  opacity: 1,    zIndex: 5 },
    "1": { x: 185,  rotateY:-35, scale: 0.62, opacity: 0.5,  zIndex: 2 },
    "2": { x: 340,  rotateY:-60, scale: 0.4,  opacity: 0,    zIndex: 0 },
 }
@@ -65,8 +65,8 @@ export function Hero() {
         className="absolute inset-0 z-0"
       >
         <Image
-          src="/athenaeum-hero.png"
-          alt="Romanian Athenaeum, Bucharest"
+          src="/Ateneo_Rumano,_Bucarest,_Rumanía,_2016-05-29,_DD_73.jpg"
+          alt="Romanian Athenaeum, Bucharest - Daylight"
           fill
           className="object-cover object-center"
           priority
@@ -132,7 +132,7 @@ export function Hero() {
             else if (info.offset.x > 50 || info.velocity.x > 400) prev()
           }}
           className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-          style={{ perspective: "1200px", touchAction: "none" }}
+          style={{ perspective: "1200px", touchAction: "none" } as any}
           role="region"
           aria-label="Destination carousel"
           aria-roledescription="carousel"
@@ -159,10 +159,10 @@ export function Hero() {
                   height: CARD_H,
                   marginLeft: -CARD_W / 2,
                   marginTop: -CARD_H / 2,
-                  top: "50%",
+                  top: isMobile ? "70%" : "50%",
                   left: "50%",
                   cursor: isCenter ? "default" : "pointer",
-                }}
+                } as any}
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${index + 1} of ${n}: ${card.title.replace("\n", " ")}`}
