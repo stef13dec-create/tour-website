@@ -9,37 +9,37 @@ import { Clock, MapPin, Users, Star } from "lucide-react"
 
 const featuredTours = [
   {
-    id: "transylvania-castles",
-    title: "Transylvania Castles & Legends",
-    duration: "Full Day (12h)",
-    location: "Peles & Bran Castles, Brasov",
-    image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Castelul_Bran2.jpg/1280px-Castelul_Bran2.jpg",
-    price: "From €120",
-    rating: 5.0,
-    reviews: 124,
-    tags: ["History", "Castles", "Bestseller"]
-  },
-  {
-    id: "bucharest-old-town",
-    title: "Bucharest Old Town & Communist History",
+    id: "belle-epoque-elegance",
+    title: "Belle Époque Elegance",
     duration: "Half Day (4h)",
-    location: "Bucharest City Center",
-    image: "https://upload.wikimedia.org/wikipedia/en/thumb/1/18/Bucharest_-_Palace_of_the_Parliament_%282024%29_%282%29.jpg/1280px-Bucharest_-_Palace_of_the_Parliament_%282024%29_%282%29.jpg",
-    price: "From €45",
-    rating: 4.9,
-    reviews: 89,
-    tags: ["City Tour", "Walking"]
+    location: "Calea Victoriei & Historic Center",
+    image: "/tours/little-paris.png",
+    price: "From €65",
+    rating: 5.0,
+    reviews: 142,
+    tags: ["History", "Architecture", "Premium"]
   },
   {
-    id: "transfagarasan-road",
-    title: "Transfagarasan Epic Drive",
-    duration: "Full Day (14h)",
-    location: "Carpathian Mountains",
-    image: "https://images.unsplash.com/photo-1534802046520-4f27db7f3ae5?q=80&w=800&auto=format&fit=crop",
-    price: "From €150",
+    id: "communist-shadows",
+    title: "Shadows of the Past",
+    duration: "Half Day (5h)",
+    location: "Palace of Parliament & Revolution Square",
+    image: "/tours/communist.png",
+    price: "From €55",
+    rating: 4.9,
+    reviews: 118,
+    tags: ["Communisum", "History", "Essential"]
+  },
+  {
+    id: "new-wave-kitchen",
+    title: "The New Wave Kitchen",
+    duration: "Evening (4h)",
+    location: "Boutique Restaurants & Wine Bars",
+    image: "/tours/contemporary-food.png",
+    price: "From €95",
     rating: 5.0,
-    reviews: 56,
-    tags: ["Nature", "Scenic Drive"]
+    reviews: 74,
+    tags: ["Gastronomy", "Modern", "Luxury"]
   }
 ]
 
@@ -91,18 +91,18 @@ export function FeaturedTours() {
               transition={{ duration: 1.2, delay: index * 0.2, ease: [0.16, 1, 0.3, 1] }}
               className="group flex flex-col h-full cursor-pointer"
             >
-              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-6">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-2xl mb-8 group-hover:shadow-[0_20px_50px_rgba(252,209,22,0.15)] transition-shadow duration-700">
                 <Image
                   src={tour.image}
                   alt={tour.title}
                   fill
-                  className="object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-105"
+                  className="object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />
-                <div className="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-colors duration-700" />
-                <div className="absolute top-4 left-4 flex gap-2">
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-700" />
+                <div className="absolute top-6 left-6 flex flex-wrap gap-2">
                   {tour.tags.map(tag => (
-                    <span key={tag} className="px-4 py-1.5 bg-black/40 backdrop-blur-md text-white text-[10px] font-light tracking-widest uppercase rounded-full border border-white/10">
+                    <span key={tag} className="px-5 py-2 bg-white/10 backdrop-blur-xl text-white text-[9px] font-medium tracking-[0.2em] uppercase rounded-full border border-white/20 shadow-xl">
                       {tag}
                     </span>
                   ))}
@@ -110,40 +110,47 @@ export function FeaturedTours() {
               </div>
 
               <div className="flex flex-col flex-grow px-2">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-1.5 text-white/80 text-sm font-light">
-                    <Star size={14} className="fill-white/80" />
-                    <span>{tour.rating}</span>
-                    <span className="text-white/40 text-xs">({tour.reviews})</span>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="flex items-center gap-2 text-white/90 text-sm font-light">
+                    <div className="flex items-center gap-1 px-2 py-0.5 bg-[#FCD116]/10 rounded border border-[#FCD116]/20">
+                      <Star size={12} className="fill-[#FCD116] text-[#FCD116]" />
+                      <span className="text-[#FCD116] font-medium">{tour.rating}</span>
+                    </div>
+                    <span className="text-white/40 text-xs">({tour.reviews} reviews)</span>
                   </div>
-                  <div className="text-white/90 text-sm font-light">
+                  <div className="text-[#FCD116] text-lg font-serif italic">
                     {tour.price}
                   </div>
                 </div>
                 
-                <h3 className="font-serif text-2xl md:text-3xl font-light text-white mb-4 group-hover:text-white/80 transition-colors line-clamp-2">
+                <h3 className="font-serif text-3xl md:text-3xl font-light text-white mb-5 group-hover:translate-x-1 transition-transform duration-500 line-clamp-2">
                   {tour.title}
                 </h3>
                 
-                <div className="space-y-2 mb-8 mt-auto">
-                  <div className="flex items-center gap-3 text-white/50 text-sm font-light">
-                    <Clock size={14} strokeWidth={1.5} />
+                <div className="grid grid-cols-2 gap-4 mb-8 mt-auto pt-6 border-t border-white/5">
+                  <div className="flex items-center gap-3 text-white/50 text-xs font-light tracking-wide italic">
+                    <Clock size={14} className="text-[#FCD116]/60" />
                     <span>{tour.duration}</span>
                   </div>
-                  <div className="flex items-center gap-3 text-white/50 text-sm font-light">
-                    <MapPin size={14} strokeWidth={1.5} />
+                  <div className="flex items-center gap-3 text-white/50 text-xs font-light tracking-wide italic">
+                    <MapPin size={14} className="text-[#FCD116]/60" />
                     <span>{tour.location}</span>
                   </div>
                 </div>
 
                 <Link 
                   href={`/tours/${tour.id}`}
-                  className="inline-flex items-center text-white text-xs font-light tracking-widest uppercase group-hover:text-white/70 transition-colors"
+                  className="group/link inline-flex items-center text-[#FCD116] text-[10px] font-medium tracking-[0.3em] uppercase transition-all duration-300 border-b border-[#FCD116]/0 hover:border-[#FCD116]/50 pb-1 w-fit"
                 >
-                  Discover Tour
-                  <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
+                  Explore Experience
+                  <motion.span
+                    animate={{ x: [0, 4, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <svg className="w-4 h-4 ml-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                    </svg>
+                  </motion.span>
                 </Link>
               </div>
             </motion.div>

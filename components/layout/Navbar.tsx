@@ -62,7 +62,10 @@ export function Navbar() {
               {link.label}
             </Link>
           ))}
-          <Button asChild variant="outline" className="ml-4 rounded-full px-8 h-10 bg-transparent border-white/40 text-white hover:bg-white hover:text-black transition-colors font-medium text-xs tracking-widest uppercase">
+          <Button 
+            asChild 
+            className="ml-4 rounded-full px-8 h-10 bg-[#FCD116] text-black hover:bg-[#FCD116]/90 transition-all font-bold text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(252,209,22,0.3)] hover:scale-105 active:scale-95"
+          >
             <Link href="/book">Book Tour</Link>
           </Button>
         </nav>
@@ -105,7 +108,7 @@ export function Navbar() {
                 {link.label}
               </Link>
             ))}
-            <Button asChild className="w-full mt-8 rounded-full h-14 bg-white text-black hover:bg-white/90 font-medium text-sm tracking-widest uppercase">
+            <Button asChild className="w-full mt-8 rounded-full h-14 bg-[#FCD116] text-black hover:bg-[#FCD116]/90 font-bold text-sm tracking-widest uppercase shadow-lg shadow-black/20">
               <Link href="/book" onClick={() => setIsMobileMenuOpen(false)}>Book Tour</Link>
             </Button>
           </motion.div>

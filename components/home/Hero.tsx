@@ -1,7 +1,6 @@
 "use client"
 
-import * as React from "react"
-import { useState } from "react"
+import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
@@ -9,55 +8,62 @@ import { Instagram, Facebook, Send, ChevronLeft, ChevronRight } from "lucide-rea
 import { useIsMobile } from "@/hooks/use-mobile"
 
 const heroCards = [
-  { title: "3 regions\nin Romania", subtitle: "Transylvania · Bucovina · Dobrogea", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Castelul_Bran2.jpg/1280px-Castelul_Bran2.jpg" },
-  { title: "10 days\nof wonder", subtitle: "The full Romania experience", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Muntii_Bucegi_vazuti_de_pe_Postavaru.jpg/1280px-Muntii_Bucegi_vazuti_de_pe_Postavaru.jpg" },
-  { title: "Gigabytes\nof photos", subtitle: "Every moment, unforgettable", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/38/Hunedoara_castle.jpg/1280px-Hunedoara_castle.jpg" },
-  { title: "Eat sarmale", subtitle: "Taste the local culture", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Libraria_Carturesti_Carusel_-_Interior_ziua.jpg/1280px-Libraria_Carturesti_Carusel_-_Interior_ziua.jpg" },
-  { title: "Enjoy\nthe vibe", subtitle: "Discover the untouched", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0b/Ateneo_Rumano%2C_Bucarest%2C_Ruman%C3%ADa%2C_2016-05-29%2C_DD_73.jpg/1280px-Ateneo_Rumano%2C_Bucarest%2C_Ruman%C3%ADa%2C_2016-05-29%2C_DD_73.jpg" },
+  { title: "Belle Époque\nElegance",        subtitle: "Architecture & French Influence",   image: "/tours/little-paris.png" },
+  { title: "Shadows of\nthe Past",           subtitle: "Rise & Fall of a Dictator",          image: "/tours/communist.png" },
+  { title: "Legends &\nSecret Passages",     subtitle: "Where Vlad the Impaler Ruled",       image: "/tours/old-town.png" },
+  { title: "Bucharest's Soul\n& Traditions", subtitle: "Authentic Flavors at Obor",          image: "/tours/markets.png" },
+  { title: "A Culinary\nOdyssey",            subtitle: "Heritage Tastes & Historic Feasts",  image: "/tours/traditional-food.png" },
+  { title: "The New\nWave Kitchen",          subtitle: "Avant-Garde Fusion & Innovations",   image: "/tours/contemporary-food.png" },
+  { title: "Lakes, Parks\n& Wellness",       subtitle: "Rejuvenation at Therme & Herastrau", image: "/tours/nature-wellness.png" },
 ]
 
-// Base card dimensions — scale handles the expansion
 const CARD_W = 200
 const CARD_H = 300
 
-// Desktop: center expands to ~1.9× (≈380×570px), side cards pushed to edges
-const desktopConfigs: Record<string, { x: number; rotateY: number; scale: number; opacity: number; zIndex: number }> = {
-  "-2": { x: -520, rotateY: 55, scale: 0.52, opacity: 0.3,  zIndex: 1 },
-  "-1": { x: -290, rotateY: 38, scale: 0.68, opacity: 0.55, zIndex: 2 },
-   "0": { x: 0,    rotateY: 0,  scale: 1.9,  opacity: 1,    zIndex: 5 },
-   "1": { x: 290,  rotateY:-38, scale: 0.68, opacity: 0.55, zIndex: 2 },
-   "2": { x: 520,  rotateY:-55, scale: 0.52, opacity: 0.3,  zIndex: 1 },
+type CardAnim = { x: number; rotateY: number; scale: number; opacity: number; zIndex: number }
+
+const desktopConfigs: Record<string, CardAnim> = {
+  "-2": { x: -520, rotateY:  55, scale: 0.52, opacity: 0.30, zIndex: 1 },
+  "-1": { x: -290, rotateY:  38, scale: 0.68, opacity: 0.55, zIndex: 2 },
+   "0": { x:    0, rotateY:   0, scale: 1.90, opacity: 1.00, zIndex: 5 },
+   "1": { x:  290, rotateY: -38, scale: 0.68, opacity: 0.55, zIndex: 2 },
+   "2": { x:  520, rotateY: -55, scale: 0.52, opacity: 0.30, zIndex: 1 },
 }
 
-// Mobile: center expands to ~2.3× (≈460×690px ≈ full phone screen)
-const mobileConfigs: Record<string, { x: number; rotateY: number; scale: number; opacity: number; zIndex: number }> = {
-  "-2": { x: -340, rotateY: 60, scale: 0.4,  opacity: 0,    zIndex: 0 },
-  "-1": { x: -185, rotateY: 35, scale: 0.62, opacity: 0.5,  zIndex: 2 },
-   "0": { x: 0,    rotateY: 0,  scale: 1.8,  opacity: 1,    zIndex: 5 },
-   "1": { x: 185,  rotateY:-35, scale: 0.62, opacity: 0.5,  zIndex: 2 },
-   "2": { x: 340,  rotateY:-60, scale: 0.4,  opacity: 0,    zIndex: 0 },
+const mobileConfigs: Record<string, CardAnim> = {
+  "-2": { x: -340, rotateY:  60, scale: 0.40, opacity: 0.00, zIndex: 0 },
+  "-1": { x: -185, rotateY:  35, scale: 0.62, opacity: 0.50, zIndex: 2 },
+   "0": { x:    0, rotateY:   0, scale: 1.80, opacity: 1.00, zIndex: 5 },
+   "1": { x:  185, rotateY: -35, scale: 0.62, opacity: 0.50, zIndex: 2 },
+   "2": { x:  340, rotateY: -60, scale: 0.40, opacity: 0.00, zIndex: 0 },
 }
 
-function getCardAnim(offset: number, isMobile: boolean) {
-  const configs = isMobile ? mobileConfigs : desktopConfigs
+function getCardAnim(offset: number, isMobile: boolean): CardAnim {
   if (Math.abs(offset) > 2) {
     return { x: offset > 0 ? 500 : -500, rotateY: offset > 0 ? -70 : 70, scale: 0.3, opacity: 0, zIndex: 0 }
   }
-  return configs[String(offset)]
+  return (isMobile ? mobileConfigs : desktopConfigs)[String(offset)]
 }
 
 export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
+  const [isPaused, setIsPaused] = useState(false)
   const isMobile = useIsMobile()
   const n = heroCards.length
 
-  const prev = () => setActiveIndex((i) => (i - 1 + n) % n)
-  const next = () => setActiveIndex((i) => (i + 1) % n)
+  const prev = useCallback(() => setActiveIndex((i) => (i - 1 + n) % n), [n])
+  const next = useCallback(() => setActiveIndex((i) => (i + 1) % n), [n])
+
+  useEffect(() => {
+    if (isPaused) return
+    const timer = setInterval(next, 2500)
+    return () => clearInterval(timer)
+  }, [isPaused, activeIndex, next]) // activeIndex in deps resets timer after manual navigation
 
   return (
     <section className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#0a0a0a] pt-24 md:pt-28 pb-8">
 
-      {/* Background with Ken Burns */}
+      {/* Background — Ken Burns */}
       <motion.div
         initial={{ scale: 1 }}
         animate={{ scale: 1.08 }}
@@ -66,17 +72,16 @@ export function Hero() {
       >
         <Image
           src="/Ateneo_Rumano,_Bucarest,_Rumanía,_2016-05-29,_DD_73.jpg"
-          alt="Romanian Athenaeum, Bucharest - Daylight"
+          alt="Romanian Athenaeum, Bucharest"
           fill
           className="object-cover object-center"
           priority
-          referrerPolicy="no-referrer"
         />
         <div className="absolute inset-0 bg-black/70" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/60" />
       </motion.div>
 
-      {/* Top heading — updates with active card */}
+      {/* Heading */}
       <motion.div
         initial={{ opacity: 0, y: -16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -108,12 +113,8 @@ export function Hero() {
         </motion.p>
       </motion.div>
 
-      {/* Carousel — fills most of the viewport height */}
-      <div
-        className="relative z-10 w-full flex items-center justify-center flex-1 min-h-0"
-        style={{ height: undefined }}
-      >
-        {/* Arrows — desktop only */}
+      {/* Carousel */}
+      <div className="relative z-10 w-full flex items-center justify-center flex-1 min-h-0">
         <button
           onClick={prev}
           aria-label="Previous"
@@ -122,7 +123,6 @@ export function Hero() {
           <ChevronLeft size={32} strokeWidth={1} />
         </button>
 
-        {/* Draggable perspective container */}
         <motion.div
           drag="x"
           dragConstraints={{ left: 0, right: 0 }}
@@ -132,7 +132,7 @@ export function Hero() {
             else if (info.offset.x > 50 || info.velocity.x > 400) prev()
           }}
           className="relative w-full h-full flex items-center justify-center cursor-grab active:cursor-grabbing"
-          style={{ perspective: "1200px", touchAction: "none" } as any}
+          style={{ perspective: 1200, touchAction: "none" }}
           role="region"
           aria-label="Destination carousel"
           aria-roledescription="carousel"
@@ -152,7 +152,10 @@ export function Hero() {
                   ease: [0.16, 1, 0.3, 1],
                   scale: { type: "spring", stiffness: 220, damping: 26 },
                 }}
+                whileHover={!isCenter ? { scale: anim.scale * 1.05, filter: "brightness(1.1)" } : undefined}
                 onClick={() => !isCenter && setActiveIndex(index)}
+                onMouseEnter={isCenter ? () => setIsPaused(true) : undefined}
+                onMouseLeave={isCenter ? () => setIsPaused(false) : undefined}
                 className="absolute"
                 style={{
                   width: CARD_W,
@@ -162,36 +165,45 @@ export function Hero() {
                   top: isMobile ? "70%" : "50%",
                   left: "50%",
                   cursor: isCenter ? "default" : "pointer",
-                } as any}
+                }}
                 role="group"
                 aria-roledescription="slide"
                 aria-label={`${index + 1} of ${n}: ${card.title.replace("\n", " ")}`}
                 aria-current={isCenter ? "true" : undefined}
               >
-                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
-                  <Image
-                    src={card.image}
-                    alt={card.title}
-                    fill
-                    className="object-cover"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/10 to-transparent" />
-                  {!isCenter && <div className="absolute inset-0 bg-black/30" />}
+                <div className={`relative w-full h-full rounded-2xl overflow-hidden shadow-2xl group ${
+                  isCenter
+                    ? "ring-1 ring-white/20 shadow-[0_24px_64px_rgba(0,0,0,0.85)]"
+                    : "border border-white/10"
+                }`}>
+                  <motion.div
+                    className="absolute inset-0"
+                    animate={isCenter ? { scale: [1, 1.1, 1], x: [0, -10, 0], y: [0, -5, 0] } : { scale: 1, x: 0, y: 0 }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  >
+                    <Image
+                      src={card.image}
+                      alt={card.title.replace("\n", " ")}
+                      fill
+                      className="object-cover"
+                    />
+                  </motion.div>
 
-                  {/* Text inside card — mobile center card only */}
-                  {isCenter && isMobile && (
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent transition-opacity group-hover:opacity-60" />
+                  {!isCenter && <div className="absolute inset-0 bg-black/40 transition-opacity group-hover:opacity-20" />}
+
+                  {isCenter && (
                     <motion.div
                       key={`card-text-${index}`}
-                      initial={{ opacity: 0, y: 8 }}
+                      initial={{ opacity: 0, y: 15 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.4, delay: 0.25 }}
-                      className="absolute bottom-0 left-0 right-0 p-5"
+                      transition={{ duration: 0.6, delay: 0.35 }}
+                      className="absolute bottom-0 left-0 right-0 p-4 md:p-6"
                     >
-                      <p className="text-white/60 text-[10px] tracking-[0.4em] uppercase mb-1">
+                      <p className="text-white/70 text-[8px] md:text-[10px] tracking-[0.4em] uppercase mb-1 md:mb-2">
                         {card.subtitle}
                       </p>
-                      <h2 className="text-white text-xl font-serif font-light whitespace-pre-line leading-snug drop-shadow-md">
+                      <h2 className="text-white text-lg md:text-2xl font-serif font-light whitespace-pre-line leading-snug drop-shadow-lg">
                         {card.title}
                       </h2>
                     </motion.div>
@@ -202,7 +214,6 @@ export function Hero() {
           })}
         </motion.div>
 
-        {/* Arrows — desktop only */}
         <button
           onClick={next}
           aria-label="Next"
@@ -219,23 +230,21 @@ export function Hero() {
         transition={{ duration: 1.2, delay: 1, ease: [0.16, 1, 0.3, 1] }}
         className="relative z-10 flex flex-col items-center gap-5 mt-4 flex-none"
       >
-        {/* Dot indicators */}
-        <div className="flex gap-2 items-center">
+        <div className="flex gap-2 items-center" role="tablist" aria-label="Carousel navigation">
           {heroCards.map((_, i) => (
             <button
               key={i}
+              role="tab"
+              aria-selected={i === activeIndex}
               onClick={() => setActiveIndex(i)}
               aria-label={`Go to slide ${i + 1}`}
               className={`rounded-full transition-all duration-300 ${
-                i === activeIndex
-                  ? "w-6 h-[4px] bg-white"
-                  : "w-[4px] h-[4px] bg-white/30 hover:bg-white/50"
+                i === activeIndex ? "w-6 h-[4px] bg-white" : "w-[4px] h-[4px] bg-white/30 hover:bg-white/50"
               }`}
             />
           ))}
         </div>
 
-        {/* Book Tour — prominent CTA */}
         <Link
           href="/book"
           className="inline-flex items-center justify-center px-10 py-4 bg-white text-black rounded-full font-medium tracking-[0.2em] uppercase text-sm hover:bg-white/90 active:scale-95 transition-all duration-300 shadow-lg shadow-black/30"
@@ -251,13 +260,13 @@ export function Hero() {
         transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
         className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 flex-col gap-6 z-20"
       >
-        <a href="#" className="text-white/35 hover:text-white transition-colors duration-500">
+        <a href="#" aria-label="Instagram" className="text-white/35 hover:text-white transition-colors duration-500">
           <Instagram size={18} strokeWidth={1.5} />
         </a>
-        <a href="#" className="text-white/35 hover:text-white transition-colors duration-500">
+        <a href="#" aria-label="Facebook" className="text-white/35 hover:text-white transition-colors duration-500">
           <Facebook size={18} strokeWidth={1.5} />
         </a>
-        <a href="#" className="text-white/35 hover:text-white transition-colors duration-500">
+        <a href="#" aria-label="Telegram" className="text-white/35 hover:text-white transition-colors duration-500">
           <Send size={18} strokeWidth={1.5} />
         </a>
       </motion.div>
