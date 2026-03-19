@@ -96,6 +96,7 @@ export function FeaturedTours() {
                   src={tour.image}
                   alt={tour.title}
                   fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                   className="object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-110"
                   referrerPolicy="no-referrer"
                 />

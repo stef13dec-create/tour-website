@@ -1,8 +1,13 @@
+import type { Metadata } from "next"
 import { Navbar } from "@/components/layout/Navbar"
+
+export const metadata: Metadata = {
+  title: 'All Tours | Discover Romania with Corina',
+  description: 'Browse all guided tours in Romania — Bucharest city experiences and day trips to Transylvania, the Danube Delta, the Black Sea, and more.',
+}
 import { Footer } from "@/components/layout/Footer"
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { Clock, MapPin, Users, Star } from "lucide-react"
 
 const allTours = [
@@ -132,6 +137,7 @@ export default function ToursPage() {
           src={tour.image}
           alt={tour.title}
           fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover transition-transform duration-1000 ease-[0.16,1,0.3,1] group-hover:scale-105"
           referrerPolicy="no-referrer"
         />

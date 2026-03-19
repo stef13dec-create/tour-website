@@ -3,8 +3,8 @@
 import { useState, useEffect, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { motion } from "motion/react"
-import { Instagram, Facebook, Send, ChevronLeft, ChevronRight } from "lucide-react"
+import { motion, useReducedMotion } from "motion/react"
+import { Send, ChevronLeft, ChevronRight } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 
 const heroCards = [
@@ -49,16 +49,17 @@ export function Hero() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isPaused, setIsPaused] = useState(false)
   const isMobile = useIsMobile()
+  const prefersReducedMotion = useReducedMotion()
   const n = heroCards.length
 
   const prev = useCallback(() => setActiveIndex((i) => (i - 1 + n) % n), [n])
   const next = useCallback(() => setActiveIndex((i) => (i + 1) % n), [n])
 
   useEffect(() => {
-    if (isPaused) return
+    if (isPaused || prefersReducedMotion) return
     const timer = setInterval(next, 2500)
     return () => clearInterval(timer)
-  }, [isPaused, activeIndex, next]) // activeIndex in deps resets timer after manual navigation
+  }, [isPaused, prefersReducedMotion, activeIndex, next]) // activeIndex in deps resets timer after manual navigation
 
   return (
     <section className="relative h-screen w-full flex flex-col items-center overflow-hidden bg-[#0a0a0a] pt-24 md:pt-28 pb-8">
@@ -66,14 +67,15 @@ export function Hero() {
       {/* Background — Ken Burns */}
       <motion.div
         initial={{ scale: 1 }}
-        animate={{ scale: 1.08 }}
+        animate={{ scale: prefersReducedMotion ? 1 : 1.08 }}
         transition={{ duration: 25, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
         className="absolute inset-0 z-0"
       >
         <Image
-          src="/Ateneo_Rumano,_Bucarest,_Rumanía,_2016-05-29,_DD_73.jpg"
+          src="/athenaeum-hero.webp"
           alt="Romanian Athenaeum, Bucharest"
           fill
+          sizes="100vw"
           className="object-cover object-center"
           priority
         />
@@ -263,13 +265,19 @@ export function Hero() {
         transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
         className="hidden md:flex absolute right-6 top-[45%] -translate-y-1/2 flex-col gap-6 z-20"
       >
-        <a href="#" aria-label="Instagram" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
-          <Instagram size={20} strokeWidth={2} />
+        <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
+          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5"/>
+            <circle cx="12" cy="12" r="4"/>
+            <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+          </svg>
         </a>
-        <a href="#" aria-label="Facebook" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
-          <Facebook size={20} strokeWidth={2} />
+        <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
+          <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.8} strokeLinecap="round" strokeLinejoin="round">
+            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+          </svg>
         </a>
-        <a href="#" aria-label="Telegram" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
+        <a href="https://t.me" target="_blank" rel="noopener noreferrer" aria-label="Telegram" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
           <Send size={20} strokeWidth={2} />
         </a>
       </motion.div>

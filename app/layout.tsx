@@ -14,7 +14,22 @@ const playfair = Playfair_Display({
 
 export const metadata: Metadata = {
   title: 'Discover Romania with Corina | Premium Tours',
-  description: 'Premium guided tours in Romania with Corina, a licensed online tour guide. Discover Bucharest, Transylvania, and authentic Romanian experiences.',
+  description: 'Premium guided tours in Romania with Corina, a licensed tour guide. Discover Bucharest, Transylvania, and authentic Romanian experiences.',
+  metadataBase: new URL('https://discoverromaniawithcorina.com'),
+  openGraph: {
+    type: 'website',
+    siteName: 'Discover Romania with Corina',
+    title: 'Discover Romania with Corina | Premium Tours',
+    description: 'Premium guided tours in Romania with Corina, a licensed tour guide. Discover Bucharest, Transylvania, and authentic Romanian experiences.',
+    images: [{ url: '/athenaeum-hero.webp', width: 2400, height: 1807, alt: 'Romanian Athenaeum, Bucharest' }],
+    locale: 'en_US',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Discover Romania with Corina | Premium Tours',
+    description: 'Premium guided tours in Romania. Discover Bucharest, Transylvania, and authentic Romanian experiences.',
+    images: ['/athenaeum-hero.webp'],
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

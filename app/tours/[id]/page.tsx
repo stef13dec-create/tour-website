@@ -6,16 +6,65 @@ import { Button } from "@/components/ui/button"
 import { Clock, MapPin, Users, Star, Check, X, Calendar } from "lucide-react"
 import { Metadata } from "next"
 
+const tourMeta: Record<string, { title: string; description: string; image: string }> = {
+  "belle-epoque-elegance": {
+    title: "Belle Époque Elegance | Discover Romania with Corina",
+    description: "Walk the grand boulevards of Bucharest's Belle Époque era — Calea Victoriei, the Romanian Athenaeum, and the city's finest Art Nouveau facades.",
+    image: "/tours/little-paris.png",
+  },
+  "communist-shadows": {
+    title: "Shadows of the Past | Discover Romania with Corina",
+    description: "Explore the monumental legacy of communism in Bucharest — the Palace of Parliament, Revolution Square, and the haunting story of Ceaușescu's regime.",
+    image: "/tours/communist.png",
+  },
+  "new-wave-kitchen": {
+    title: "The New Wave Kitchen | Discover Romania with Corina",
+    description: "An evening tour through Bucharest's most exciting contemporary restaurants and wine bars. Modern Romanian cuisine at its most inventive.",
+    image: "/tours/contemporary-food.png",
+  },
+  "transylvania-castles": {
+    title: "Transylvania in a Day | Discover Romania with Corina",
+    description: "Visit Bran Castle, Peles Castle, and the medieval streets of Brasov on this full-day tour from Bucharest through the Carpathian Mountains.",
+    image: "/tours/transylvania.jpg",
+  },
+  "slanic-salt-mine": {
+    title: "Underground Cathedral | Discover Romania with Corina",
+    description: "Descend into Europe's largest salt mine — Slanic Prahova — a vast underground world of carved chambers, salt sculptures, and healing air.",
+    image: "/tours/salt-mine.jpg",
+  },
+  "danube-delta": {
+    title: "Wild Danube Delta | Discover Romania with Corina",
+    description: "Explore the UNESCO-protected Danube Delta by boat — 300 bird species, pristine reed channels, and one of Europe's last true wildernesses.",
+    image: "/tours/danube-delta.jpg",
+  },
+  "constanta-black-sea": {
+    title: "Sea & Ancient Rome | Discover Romania with Corina",
+    description: "A full-day journey to Constanta — Romania's oldest city — and the Black Sea coast. Roman mosaics, Art Nouveau landmarks, and Mamaia beach.",
+    image: "/tours/black-sea.jpg",
+  },
+  "mogosoaia-snagov": {
+    title: "Palaces & Dracula's Tomb | Discover Romania with Corina",
+    description: "Visit the elegant Mogosoaia Palace and the island monastery of Snagov — rumoured burial site of Vlad the Impaler — on this half-day escape from Bucharest.",
+    image: "/tours/mogosoaia.jpg",
+  },
+}
+
+const defaultMeta = {
+  title: "Romanian Tour | Discover Romania with Corina",
+  description: "A premium guided tour of Romania with Corina, your licensed local expert. Small groups, private options, unforgettable experiences.",
+  image: "/athenaeum-hero.webp",
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  void id; // will be used when data is fetched dynamically
+  const meta = tourMeta[id] ?? defaultMeta;
   return {
-    title: "Transylvania Castles & Legends | Discover Romania with Corina",
-    description: "Step into the heart of Transylvania and discover the legends that made Romania famous. Visit Peles Castle, Bran Castle, and medieval Brasov on this full-day tour.",
+    title: meta.title,
+    description: meta.description,
     openGraph: {
-      title: "Transylvania Castles & Legends",
-      description: "Visit Peles Castle, Bran Castle, and medieval Brasov. Full-day guided tour from Bucharest with a licensed local expert.",
-      images: [{ url: "https://picsum.photos/seed/bran/1920/1080" }],
+      title: meta.title,
+      description: meta.description,
+      images: [{ url: meta.image }],
     },
   }
 }

@@ -1,6 +1,6 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Facebook, Instagram, Mail, MapPin, Phone } from "lucide-react"
+import { Mail, MapPin, Phone } from "lucide-react"
 
 export function Footer() {
   return (
@@ -20,11 +20,17 @@ export function Footer() {
             Premium guided tours in Romania. Discover the authentic beauty, rich history, and vibrant culture of Bucharest, Transylvania, and beyond with a licensed local expert.
           </p>
           <div className="flex items-center gap-4">
-            <a href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-white hover:text-black hover:border-white transition-all">
-              <Instagram size={20} strokeWidth={1.5} />
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-white hover:text-black hover:border-white transition-all">
+              <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5"/>
+                <circle cx="12" cy="12" r="4"/>
+                <circle cx="17.5" cy="6.5" r="0.8" fill="currentColor" stroke="none"/>
+              </svg>
             </a>
-            <a href="#" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-white hover:text-black hover:border-white transition-all">
-              <Facebook size={20} strokeWidth={1.5} />
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center text-white/50 hover:bg-white hover:text-black hover:border-white transition-all">
+              <svg width={20} height={20} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+              </svg>
             </a>
           </div>
         </div>
@@ -49,7 +55,7 @@ export function Footer() {
             </li>
             <li className="flex items-center gap-4 text-white/70 font-light">
               <Phone size={20} className="text-white/50 shrink-0" strokeWidth={1.5} />
-              <a href="tel:+40123456789" className="hover:text-white transition-colors">+40 123 456 789</a>
+              <a href="tel:+40000000000" className="hover:text-white transition-colors">+40 000 000 000</a>
             </li>
             <li className="flex items-center gap-4 text-white/70 font-light">
               <Mail size={20} className="text-white/50 shrink-0" strokeWidth={1.5} />
