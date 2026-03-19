@@ -44,7 +44,7 @@ export function WhyCorina() {
           >
             <div className="relative aspect-[3/4] w-full max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden">
               <Image
-                src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop"
+                src="/Corina picture.JPG"
                 alt="Corina, your licensed tour guide in Romania"
                 fill
                 className="object-cover"

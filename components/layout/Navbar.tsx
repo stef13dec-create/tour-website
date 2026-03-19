@@ -36,8 +36,8 @@ export function Navbar() {
         isScrolled ? "bg-[#050505]/90 backdrop-blur-xl border-b border-white/5 py-4" : "bg-transparent"
       )}
     >
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-center md:justify-between relative">
-        <Link href="/" className="flex items-center gap-2 group md:translate-x-0">
+      <div className="max-w-7xl mx-auto flex flex-row items-center justify-between md:justify-between relative">
+        <Link href="/" className="flex items-center gap-2 group -ml-4">
           <Image
             src="/logo.png"
             alt="Bucharest Tours by Corina"
@@ -70,16 +70,24 @@ export function Navbar() {
           </Button>
         </nav>
 
-        {/* Mobile Menu Toggle */}
-        <button
-          className="md:hidden absolute right-0 text-white/70 hover:text-white transition-colors"
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={isMobileMenuOpen}
-          aria-controls="mobile-nav"
-        >
-          {isMobileMenuOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
-        </button>
+        {/* Mobile: Book Tour + Menu Toggle */}
+        <div className="md:hidden absolute right-0 flex items-center gap-3">
+          <Link
+            href="/book"
+            className="rounded-full px-5 py-2 bg-[#FCD116] text-black font-bold text-[10px] tracking-widest uppercase shadow-[0_0_12px_rgba(252,209,22,0.3)]"
+          >
+            Book Tour
+          </Link>
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMobileMenuOpen}
+            aria-controls="mobile-nav"
+            className="text-white/70 hover:text-white transition-colors"
+          >
+            {isMobileMenuOpen ? <X size={28} strokeWidth={1} /> : <Menu size={28} strokeWidth={1} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Nav */}

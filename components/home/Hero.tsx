@@ -118,9 +118,9 @@ export function Hero() {
         <button
           onClick={prev}
           aria-label="Previous"
-          className="hidden md:flex absolute left-10 z-30 text-white/35 hover:text-white transition-colors duration-300 p-2"
+          className="hidden md:flex absolute left-10 z-30 text-white/60 hover:text-white transition-colors duration-300 p-2 -translate-y-12"
         >
-          <ChevronLeft size={32} strokeWidth={1} />
+          <ChevronLeft size={32} strokeWidth={1.5} />
         </button>
 
         <motion.div
@@ -217,9 +217,9 @@ export function Hero() {
         <button
           onClick={next}
           aria-label="Next"
-          className="hidden md:flex absolute right-10 z-30 text-white/35 hover:text-white transition-colors duration-300 p-2"
+          className="hidden md:flex absolute right-10 z-30 text-white/60 hover:text-white transition-colors duration-300 p-2 -translate-y-12"
         >
-          <ChevronRight size={32} strokeWidth={1} />
+          <ChevronRight size={32} strokeWidth={1.5} />
         </button>
       </div>
 
@@ -251,6 +251,9 @@ export function Hero() {
         >
           Book Tour
         </Link>
+        <a href="#day-trips" className="text-white/40 hover:text-white/70 text-[10px] tracking-[0.3em] uppercase transition-colors duration-300">
+          Day Trips ↓
+        </a>
       </motion.div>
 
       {/* Social Icons — desktop only */}
@@ -258,16 +261,16 @@ export function Hero() {
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 1.5, delay: 1, ease: [0.16, 1, 0.3, 1] }}
-        className="hidden md:flex absolute right-6 top-1/2 -translate-y-1/2 flex-col gap-6 z-20"
+        className="hidden md:flex absolute right-6 top-[45%] -translate-y-1/2 flex-col gap-6 z-20"
       >
-        <a href="#" aria-label="Instagram" className="text-white/35 hover:text-white transition-colors duration-500">
-          <Instagram size={18} strokeWidth={1.5} />
+        <a href="#" aria-label="Instagram" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
+          <Instagram size={20} strokeWidth={2} />
         </a>
-        <a href="#" aria-label="Facebook" className="text-white/35 hover:text-white transition-colors duration-500">
-          <Facebook size={18} strokeWidth={1.5} />
+        <a href="#" aria-label="Facebook" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
+          <Facebook size={20} strokeWidth={2} />
         </a>
-        <a href="#" aria-label="Telegram" className="text-white/35 hover:text-white transition-colors duration-500">
-          <Send size={18} strokeWidth={1.5} />
+        <a href="#" aria-label="Telegram" className="group flex items-center justify-center w-10 h-10 rounded-full bg-black/10 backdrop-blur-sm border border-white/10 text-white/60 hover:text-white hover:bg-black/20 transition-all duration-500">
+          <Send size={20} strokeWidth={2} />
         </a>
       </motion.div>
 

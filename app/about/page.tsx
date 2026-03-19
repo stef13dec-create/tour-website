@@ -41,7 +41,7 @@ export default function AboutPage() {
           <div className="w-full lg:w-1/2">
             <div className="relative aspect-[4/5] max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="https://picsum.photos/seed/corina-portrait/800/1000"
+                src="/Corina picture.JPG"
                 alt="Corina, licensed tour guide in Romania"
                 fill
                 className="object-cover"

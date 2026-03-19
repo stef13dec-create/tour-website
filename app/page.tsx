@@ -2,6 +2,7 @@ import { Navbar } from "@/components/layout/Navbar"
 import { Footer } from "@/components/layout/Footer"
 import { Hero } from "@/components/home/Hero"
 import { FeaturedTours } from "@/components/home/FeaturedTours"
+import { DayTripsTeaser } from "@/components/home/DayTripsTeaser"
 import { WhyCorina } from "@/components/home/WhyCorina"
 import { Timeline } from "@/components/home/Timeline"
 import { Testimonials } from "@/components/home/Testimonials"
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <FeaturedTours />
+      <DayTripsTeaser />
       <WhyCorina />
       <Timeline />
       <Testimonials />
