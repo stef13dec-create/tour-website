@@ -4,9 +4,17 @@ import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
 
-const destinations = ["Transylvania", "Danube Delta", "Black Sea"]
+import { outsideTours } from "@/lib/tours"
 
 export function DayTripsTeaser() {
+  // We'll show the main 3 for the pills as in the design, or all of them.
+  // The user said "for EACH tour", so let's show all outside tours.
+  // However, mapping them to shorter names if possible for the pills.
+  const displayTours = outsideTours.map(t => ({
+    id: t.id,
+    label: t.title.split(":")[0].split("&")[0].split("in a Day")[0].trim().toUpperCase()
+  }))
+
   return (
     <section
       id="day-trips"
@@ -49,21 +57,22 @@ export function DayTripsTeaser() {
           Romania Awaits Beyond<br className="hidden md:block" /> the City Walls
         </motion.h2>
 
-        {/* Destination pills */}
+        {/* Destination buttons */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.9, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-          className="flex flex-wrap justify-center gap-3"
+          className="flex flex-wrap justify-center gap-4 max-w-4xl"
         >
-          {destinations.map((d) => (
-            <span
-              key={d}
-              className="px-5 py-2 border border-[#FCD116]/40 backdrop-blur-xl text-white text-[9px] tracking-[0.2em] uppercase rounded-full"
+          {displayTours.map((tour) => (
+            <Link
+              key={tour.id}
+              href={`/tours/${tour.id}`}
+              className="px-6 py-3 border border-[#FCD116]/40 backdrop-blur-xl text-white text-[10px] tracking-[0.2em] uppercase rounded-full hover:bg-[#FCD116] hover:text-black hover:border-[#FCD116] transition-all duration-500"
             >
-              {d}
-            </span>
+              {tour.label}
+            </Link>
           ))}
         </motion.div>
 

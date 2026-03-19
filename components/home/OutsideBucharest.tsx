@@ -6,63 +6,7 @@ import Link from "next/link"
 import { motion } from "motion/react"
 import { Clock, MapPin, Star } from "lucide-react"
 
-const outsideTours = [
-  {
-    id: "transylvania-castles",
-    title: "Transylvania in a Day",
-    duration: "Full Day (12–14h)",
-    location: "Bran Castle, Peles Castle & Brasov",
-    image: "/tours/transylvania.jpg",
-    price: "From €45",
-    rating: 4.8,
-    reviews: 1240,
-    tags: ["Dracula", "Castles", "Bestseller"]
-  },
-  {
-    id: "slanic-salt-mine",
-    title: "Underground Cathedral",
-    duration: "Half Day (7–8h)",
-    location: "Slanic Prahova Salt Mine",
-    image: "/tours/salt-mine.jpg",
-    price: "From €35",
-    rating: 4.6,
-    reviews: 387,
-    tags: ["Nature", "Unique", "Halotherapy"]
-  },
-  {
-    id: "danube-delta",
-    title: "Wild Danube Delta",
-    duration: "Full Day (14h)",
-    location: "Tulcea — UNESCO Delta",
-    image: "/tours/danube-delta.jpg",
-    price: "From €85",
-    rating: 4.7,
-    reviews: 214,
-    tags: ["Wildlife", "Nature", "UNESCO"]
-  },
-  {
-    id: "constanta-black-sea",
-    title: "Sea & Ancient Rome",
-    duration: "Full Day (10–12h)",
-    location: "Constanta & Mamaia Beach",
-    image: "/tours/black-sea.jpg",
-    price: "From €55",
-    rating: 4.5,
-    reviews: 302,
-    tags: ["History", "Beach", "Summer"]
-  },
-  {
-    id: "mogosoaia-snagov",
-    title: "Palaces & Dracula's Tomb",
-    duration: "Half Day (5–7h)",
-    location: "Mogosoaia Palace & Snagov",
-    image: "/tours/mogosoaia.jpg",
-    price: "From €30",
-    rating: 4.6,
-    reviews: 178,
-    tags: ["Dracula", "Palaces", "Easy"]
-  }
-]
+import { outsideTours } from "@/lib/tours"
 
 export function OutsideBucharest() {
   return (

@@ -6,47 +6,13 @@ import { Button } from "@/components/ui/button"
 import { Clock, MapPin, Users, Star, Check, X, Calendar } from "lucide-react"
 import { Metadata } from "next"
 
-const tourMeta: Record<string, { title: string; description: string; image: string }> = {
-  "belle-epoque-elegance": {
-    title: "Belle Époque Elegance | Discover Romania with Corina",
-    description: "Walk the grand boulevards of Bucharest's Belle Époque era — Calea Victoriei, the Romanian Athenaeum, and the city's finest Art Nouveau facades.",
-    image: "/tours/little-paris.png",
-  },
-  "communist-shadows": {
-    title: "Shadows of the Past | Discover Romania with Corina",
-    description: "Explore the monumental legacy of communism in Bucharest — the Palace of Parliament, Revolution Square, and the haunting story of Ceaușescu's regime.",
-    image: "/tours/communist.png",
-  },
-  "new-wave-kitchen": {
-    title: "The New Wave Kitchen | Discover Romania with Corina",
-    description: "An evening tour through Bucharest's most exciting contemporary restaurants and wine bars. Modern Romanian cuisine at its most inventive.",
-    image: "/tours/contemporary-food.png",
-  },
-  "transylvania-castles": {
-    title: "Transylvania in a Day | Discover Romania with Corina",
-    description: "Visit Bran Castle, Peles Castle, and the medieval streets of Brasov on this full-day tour from Bucharest through the Carpathian Mountains.",
-    image: "/tours/transylvania.jpg",
-  },
-  "slanic-salt-mine": {
-    title: "Underground Cathedral | Discover Romania with Corina",
-    description: "Descend into Europe's largest salt mine — Slanic Prahova — a vast underground world of carved chambers, salt sculptures, and healing air.",
-    image: "/tours/salt-mine.jpg",
-  },
-  "danube-delta": {
-    title: "Wild Danube Delta | Discover Romania with Corina",
-    description: "Explore the UNESCO-protected Danube Delta by boat — 300 bird species, pristine reed channels, and one of Europe's last true wildernesses.",
-    image: "/tours/danube-delta.jpg",
-  },
-  "constanta-black-sea": {
-    title: "Sea & Ancient Rome | Discover Romania with Corina",
-    description: "A full-day journey to Constanta — Romania's oldest city — and the Black Sea coast. Roman mosaics, Art Nouveau landmarks, and Mamaia beach.",
-    image: "/tours/black-sea.jpg",
-  },
-  "mogosoaia-snagov": {
-    title: "Palaces & Dracula's Tomb | Discover Romania with Corina",
-    description: "Visit the elegant Mogosoaia Palace and the island monastery of Snagov — rumoured burial site of Vlad the Impaler — on this half-day escape from Bucharest.",
-    image: "/tours/mogosoaia.jpg",
-  },
+import { getTourById, allTours } from "@/lib/tours"
+import { notFound } from "next/navigation"
+
+export async function generateStaticParams() {
+  return allTours.map((tour) => ({
+    id: tour.id,
+  }))
 }
 
 const defaultMeta = {
@@ -57,53 +23,52 @@ const defaultMeta = {
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  const meta = tourMeta[id] ?? defaultMeta;
+  const tour = getTourById(id);
+  
+  if (!tour) return defaultMeta;
+
   return {
-    title: meta.title,
-    description: meta.description,
+    title: `${tour.title} | Discover Romania with Corina`,
+    description: tour.overview || `Join our ${tour.duration} tour to ${tour.location}. ${tour.price}.`,
     openGraph: {
-      title: meta.title,
-      description: meta.description,
-      images: [{ url: meta.image }],
+      title: `${tour.title} | Discover Romania with Corina`,
+      description: tour.overview,
+      images: [{ url: tour.image }],
     },
   }
 }
 
 export default async function TourDetailPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  void id; // will be used when data is fetched dynamically
-  // In a real app, fetch data based on id
+  const tourData = getTourById(id);
+
+  if (!tourData) {
+    notFound();
+  }
+
+  // Combine static fallback data with dynamic data if needed, 
+  // but for now we'll use tourData with defaults for missing fields
   const tour = {
-    id: "transylvania-castles",
-    title: "Transylvania Castles & Legends",
-    duration: "Full Day (12h)",
-    location: "Peles & Bran Castles, Brasov",
-    image: "https://picsum.photos/seed/bran/1920/1080",
-    price: "From €120",
-    rating: 5.0,
-    reviews: 124,
-    tags: ["History", "Castles", "Bestseller"],
-    overview: "Step into the heart of Transylvania and discover the legends that made Romania famous. This full-day tour from Bucharest takes you through the scenic Carpathian Mountains to visit the stunning Peles Castle, the infamous Bran Castle (Dracula's Castle), and the medieval city of Brasov. Perfect for history buffs and nature lovers alike.",
-    included: [
-      "Hotel pickup and drop-off in Bucharest",
+    ...tourData,
+    overview: tourData.overview || "Experience the magic of Romania with this curated tour. Our licensed guides will take you through the most beautiful and historic sites, providing local insights and an unforgettable journey.",
+    included: tourData.included || [
       "Licensed English-speaking guide",
-      "Transportation by air-conditioned minivan",
-      "Skip-the-line access (tickets not included)",
-      "Bottled water"
+      "Transportation by air-conditioned vehicle",
+      "Bottled water",
+      "Local insights and tips"
     ],
-    excluded: [
-      "Entrance fees to Peles and Bran Castles",
+    excluded: tourData.excluded || [
+      "Entrance fees to monuments",
       "Lunch and personal expenses",
       "Gratuities (optional)"
     ],
-    itinerary: [
-      { time: "08:00 AM", title: "Departure from Bucharest", desc: "Pickup from your hotel or central meeting point." },
-      { time: "10:30 AM", title: "Peles Castle", desc: "Guided tour of the former summer residence of the Romanian Royal Family in Sinaia." },
-      { time: "01:30 PM", title: "Bran Castle", desc: "Explore the legendary fortress associated with Dracula." },
-      { time: "03:30 PM", title: "Brasov Walking Tour", desc: "Discover the Council Square, Black Church, and medieval walls." },
-      { time: "08:00 PM", title: "Return to Bucharest", desc: "Drop-off at your hotel." }
+    itinerary: tourData.itinerary || [
+      { time: "Start", title: "Morning Departure", desc: "Meet your guide and start the journey." },
+      { time: "Mid-day", title: "Tour Experience", desc: "Deep dive into the history and culture of the location." },
+      { time: "Evening", title: "Return", desc: "Arrive back at the starting point or your hotel." }
     ]
   }
+
 
   return (
     <main className="min-h-screen flex flex-col bg-[#050505]">
