@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Calendar, Users, Globe, MapPin, Coffee, MessageSquare, Check } from "lucide-react"
 import { useSearchParams } from "next/navigation"
 import { allTours } from "@/lib/tours"
+import BookingReference from "./BookingReference"
 
 function BookingContent() {
   const searchParams = useSearchParams()
@@ -53,7 +54,7 @@ function BookingContent() {
               Thank you for choosing to discover Romania with me. I have received your request and will confirm availability within 24 hours.
             </p>
             <div className="bg-black/40 border border-white/5 rounded-2xl p-6 text-left mb-10">
-              <p className="text-sm text-white/50 font-light mb-2">Booking Reference: <span className="text-white font-mono tracking-wider">#RO-{Math.floor(1000 + Math.random() * 9000)}</span></p>
+              <p className="text-sm text-white/50 font-light mb-2">Booking Reference: <BookingReference /></p>
               <p className="text-sm text-white/50 font-light">We've sent a summary to your email address.</p>
             </div>
             <Button asChild className="w-full sm:w-auto rounded-full bg-white text-black hover:bg-white/90 text-sm tracking-widest uppercase font-medium h-14 px-10">
