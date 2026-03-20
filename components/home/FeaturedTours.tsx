@@ -4,44 +4,8 @@ import * as React from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
-import { Button } from "@/components/ui/button"
-import { Clock, MapPin, Users, Star } from "lucide-react"
-
-const featuredTours = [
-  {
-    id: "belle-epoque-elegance",
-    title: "Belle Époque Elegance",
-    duration: "Half Day (4h)",
-    location: "Calea Victoriei & Historic Center",
-    image: "/tours/little-paris.png",
-    price: "From €65",
-    rating: 5.0,
-    reviews: 142,
-    tags: ["History", "Architecture", "Premium"]
-  },
-  {
-    id: "communist-shadows",
-    title: "Shadows of the Past",
-    duration: "Half Day (5h)",
-    location: "Palace of Parliament & Revolution Square",
-    image: "/tours/communist.png",
-    price: "From €55",
-    rating: 4.9,
-    reviews: 118,
-    tags: ["Communisum", "History", "Essential"]
-  },
-  {
-    id: "new-wave-kitchen",
-    title: "The New Wave Kitchen",
-    duration: "Evening (4h)",
-    location: "Boutique Restaurants & Wine Bars",
-    image: "/tours/contemporary-food.png",
-    price: "From €95",
-    rating: 5.0,
-    reviews: 74,
-    tags: ["Gastronomy", "Modern", "Luxury"]
-  }
-]
+import { Clock, MapPin, Star } from "lucide-react"
+import { featuredTours } from "@/lib/tours"
 
 export function FeaturedTours() {
   return (

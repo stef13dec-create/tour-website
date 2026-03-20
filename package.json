@@ -1,5 +1,5 @@
 {
-  "name": "ai-studio-applet",
+  "name": "discover-romania-tours",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,10 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "type-check": "tsc --noEmit",
     "clean": "next clean"
   },
   "dependencies": {
-    "@google/genai": "^1.17.0",
     "@hookform/resolvers": "^5.2.1",
     "@radix-ui/react-accordion": "^1.2.12",
     "@radix-ui/react-dialog": "^1.1.15",

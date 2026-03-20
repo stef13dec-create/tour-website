@@ -10,7 +10,7 @@ import { Testimonials } from "@/components/home/Testimonials"
 
 export default function ReviewsPage() {
   return (
-    <main className="min-h-screen flex flex-col bg-zinc-950">
+    <main className="min-h-screen flex flex-col bg-[#050505]">
       <Navbar />
       <div className="pt-24">
         <Testimonials />

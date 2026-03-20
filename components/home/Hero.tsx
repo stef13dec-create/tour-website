@@ -6,15 +6,16 @@ import Link from "next/link"
 import { motion, useReducedMotion } from "motion/react"
 import { Send, ChevronLeft, ChevronRight } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
+import { useRouter } from "next/navigation"
 
 const heroCards = [
-  { title: "Belle Époque\nElegance",        subtitle: "Architecture & French Influence",   image: "/tours/little-paris.png" },
-  { title: "Shadows of\nthe Past",           subtitle: "Rise & Fall of a Dictator",          image: "/tours/communist.png" },
-  { title: "Legends &\nSecret Passages",     subtitle: "Where Vlad the Impaler Ruled",       image: "/tours/old-town.png" },
-  { title: "Bucharest's Soul\n& Traditions", subtitle: "Authentic Flavors at Obor",          image: "/tours/markets.png" },
-  { title: "A Culinary\nOdyssey",            subtitle: "Heritage Tastes & Historic Feasts",  image: "/tours/traditional-food.png" },
-  { title: "The New\nWave Kitchen",          subtitle: "Avant-Garde Fusion & Innovations",   image: "/tours/contemporary-food.png" },
-  { title: "Lakes, Parks\n& Wellness",       subtitle: "Rejuvenation at Therme & Herastrau", image: "/tours/nature-wellness.png" },
+  { title: "Belle Époque\nElegance",        subtitle: "Architecture & French Influence",   image: "/tours/little-paris.png", href: "/tours/belle-epoque-elegance" },
+  { title: "Shadows of\nthe Past",           subtitle: "Rise & Fall of a Dictator",          image: "/tours/communist.png", href: "/tours/communist-shadows" },
+  { title: "Legends &\nSecret Passages",     subtitle: "Where Vlad the Impaler Ruled",       image: "/tours/old-town.png", href: "/tours/bucharest-old-town" },
+  { title: "Bucharest's Soul\n& Traditions", subtitle: "Authentic Flavors at Obor",          image: "/tours/markets.png", href: "/tours" },
+  { title: "A Culinary\nOdyssey",            subtitle: "Heritage Tastes & Historic Feasts",  image: "/tours/traditional-food.png", href: "/tours/taste-of-romania" },
+  { title: "The New\nWave Kitchen",          subtitle: "Avant-Garde Fusion & Innovations",   image: "/tours/contemporary-food.png", href: "/tours/new-wave-kitchen" },
+  { title: "Lakes, Parks\n& Wellness",       subtitle: "Rejuvenation at Therme & Herastrau", image: "/tours/nature-wellness.png", href: "/tours" },
 ]
 
 const CARD_W = 200
@@ -50,6 +51,7 @@ export function Hero() {
   const [isPaused, setIsPaused] = useState(false)
   const isMobile = useIsMobile()
   const prefersReducedMotion = useReducedMotion()
+  const router = useRouter()
   const n = heroCards.length
 
   const prev = useCallback(() => setActiveIndex((i) => (i - 1 + n) % n), [n])
@@ -248,7 +250,7 @@ export function Hero() {
         </div>
 
         <Link
-          href="/book"
+          href={heroCards[activeIndex].href || "/tours"}
           className="inline-flex items-center justify-center px-10 py-4 bg-white text-black rounded-full font-medium tracking-[0.2em] uppercase text-sm hover:bg-white/90 active:scale-95 transition-all duration-300 shadow-lg shadow-black/30"
         >
           Book Tour

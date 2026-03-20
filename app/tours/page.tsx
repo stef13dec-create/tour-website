@@ -71,15 +71,23 @@ export default function ToursPage() {
           </div>
         </div>
 
-        <Link 
-          href={`/tours/${tour.id}`}
-          className="inline-flex items-center text-white text-xs font-light tracking-widest uppercase group-hover:text-white/70 transition-colors"
-        >
-          Discover Tour
-          <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
-          </svg>
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link 
+            href={`/tours/${tour.id}`}
+            className="inline-flex items-center text-white text-[10px] md:text-xs font-light tracking-widest uppercase group-hover:text-white/70 transition-colors"
+          >
+            Discover Tour
+            <svg className="w-4 h-4 ml-2 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+            </svg>
+          </Link>
+          <Link 
+            href={`/book?tour=${tour.id}`}
+            className="inline-flex items-center justify-center px-6 py-2 bg-[#FCD116] text-black rounded-full font-bold tracking-widest uppercase text-[10px] hover:bg-[#FCD116]/90 transition-all shadow-[0_0_12px_rgba(252,209,22,0.2)] hover:scale-105 active:scale-95"
+          >
+            Book
+          </Link>
+        </div>
       </div>
     </div>
   )

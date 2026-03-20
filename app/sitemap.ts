@@ -1,17 +1,7 @@
 import type { MetadataRoute } from "next"
+import { allTours } from "@/lib/tours"
 
 const baseUrl = "https://discoverromaniawithcorina.com"
-
-const tourIds = [
-  "belle-epoque-elegance",
-  "communist-shadows",
-  "new-wave-kitchen",
-  "transylvania-castles",
-  "slanic-salt-mine",
-  "danube-delta",
-  "constanta-black-sea",
-  "mogosoaia-snagov",
-]
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
@@ -25,8 +15,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.6 },
   ]
 
-  const tourRoutes: MetadataRoute.Sitemap = tourIds.map((id) => ({
-    url: `${baseUrl}/tours/${id}`,
+  const tourRoutes: MetadataRoute.Sitemap = allTours.map((tour) => ({
+    url: `${baseUrl}/tours/${tour.id}`,
     lastModified: new Date(),
     changeFrequency: "monthly",
     priority: 0.8,

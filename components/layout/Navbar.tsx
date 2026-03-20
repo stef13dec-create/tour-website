@@ -73,14 +73,14 @@ export function Navbar() {
             asChild 
             className="ml-4 rounded-full px-8 h-10 bg-[#FCD116] text-black hover:bg-[#FCD116]/90 transition-all font-bold text-xs tracking-widest uppercase shadow-[0_0_15px_rgba(252,209,22,0.3)] hover:scale-105 active:scale-95"
           >
-            <Link href="/book">Book Tour</Link>
+            <Link href="/tours">Book Tour</Link>
           </Button>
         </nav>
 
         {/* Mobile: Book Tour + Menu Toggle */}
         <div className="md:hidden absolute right-0 flex items-center gap-3">
           <Link
-            href="/book"
+            href="/tours"
             className="rounded-full px-5 py-2 bg-[#FCD116] text-black font-bold text-[10px] tracking-widest uppercase shadow-[0_0_12px_rgba(252,209,22,0.3)]"
           >
             Book Tour
@@ -124,7 +124,7 @@ export function Navbar() {
               </Link>
             ))}
             <Button asChild className="w-full mt-8 rounded-full h-14 bg-[#FCD116] text-black hover:bg-[#FCD116]/90 font-bold text-sm tracking-widest uppercase shadow-lg shadow-black/20">
-              <Link href="/book" onClick={() => setIsMobileMenuOpen(false)}>Book Tour</Link>
+              <Link href="/tours" onClick={() => setIsMobileMenuOpen(false)}>Book Tour</Link>
             </Button>
           </motion.div>
         )}

@@ -12,7 +12,7 @@ export function DayTripsTeaser() {
   // However, mapping them to shorter names if possible for the pills.
   const displayTours = outsideTours.map(t => ({
     id: t.id,
-    label: t.title.split(":")[0].split("&")[0].split("in a Day")[0].trim().toUpperCase()
+    label: t.label ?? t.title.toUpperCase()
   }))
 
   return (
