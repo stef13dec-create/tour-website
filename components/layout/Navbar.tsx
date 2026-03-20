@@ -50,7 +50,7 @@ export function Navbar() {
             alt="Bucharest Tours by Corina"
             width={360}
             height={120}
-            className="h-20 w-auto md:h-24 transition-opacity group-hover:opacity-70"
+            className="h-12 w-auto md:h-24 transition-opacity group-hover:opacity-70"
             priority
           />
         </Link>
