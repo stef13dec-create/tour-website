@@ -4,6 +4,7 @@ import * as React from "react"
 import Image from "next/image"
 import { motion } from "motion/react"
 import { ShieldCheck, Heart, Map, Coffee, Star } from "lucide-react"
+import { getAssetPath } from "@/lib/utils"
 
 const reasons = [
   {
@@ -44,7 +45,7 @@ export function WhyCorina() {
           >
             <div className="relative aspect-[3/4] w-full max-w-md mx-auto lg:mx-0 rounded-2xl overflow-hidden">
               <Image
-                src="/Corina picture.JPG"
+                src={getAssetPath("/Corina picture.JPG")}
                 alt="Corina, your licensed tour guide in Romania"
                 fill
                 className="object-cover"

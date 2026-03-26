@@ -4,6 +4,7 @@ import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ShieldCheck, Heart, Map, Coffee, Star, Award } from "lucide-react"
+import { getAssetPath } from "@/lib/utils"
 
 export default function AboutPage() {
   return (
@@ -41,7 +42,7 @@ export default function AboutPage() {
           <div className="w-full lg:w-1/2">
             <div className="relative aspect-[4/5] max-w-md mx-auto rounded-2xl overflow-hidden shadow-2xl border border-white/10">
               <Image
-                src="/Corina picture.JPG"
+                src={getAssetPath("/Corina picture.JPG")}
                 alt="Corina, licensed tour guide in Romania"
                 fill
                 className="object-cover"

@@ -1,6 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Mail, MapPin, Phone } from "lucide-react"
+import { getAssetPath } from "@/lib/utils"
 
 export function Footer() {
   return (
@@ -9,7 +10,7 @@ export function Footer() {
         <div className="col-span-1 md:col-span-2 flex flex-col items-center md:items-start text-center md:text-left">
           <div className="mb-6">
             <Image
-              src="/logo.png"
+              src={getAssetPath("/logo.png")}
               alt="Bucharest Tours by Corina"
               width={440}
               height={148}

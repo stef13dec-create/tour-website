@@ -8,6 +8,7 @@ import { Metadata } from "next"
 
 import { getTourById, allTours } from "@/lib/tours"
 import { notFound } from "next/navigation"
+import { getAssetPath } from "@/lib/utils"
 
 export async function generateStaticParams() {
   return allTours.map((tour) => ({
@@ -18,7 +19,7 @@ export async function generateStaticParams() {
 const defaultMeta = {
   title: "Romanian Tour | Discover Romania with Corina",
   description: "A premium guided tour of Romania with Corina, your licensed local expert. Small groups, private options, unforgettable experiences.",
-  image: "/athenaeum-hero.webp",
+  image: getAssetPath("/athenaeum-hero.webp"),
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {

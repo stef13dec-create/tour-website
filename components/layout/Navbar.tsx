@@ -4,7 +4,7 @@ import * as React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { cn } from "@/lib/utils"
+import { cn, getAssetPath } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import { motion, AnimatePresence } from "motion/react"
@@ -46,7 +46,7 @@ export function Navbar() {
       <div className="max-w-7xl mx-auto flex flex-row items-center justify-between md:justify-between relative">
         <Link href="/" className="flex items-center gap-2 group -ml-4">
           <Image
-            src="/logo.png"
+            src={getAssetPath("/logo.png")}
             alt="Bucharest Tours by Corina"
             width={360}
             height={120}

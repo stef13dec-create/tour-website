@@ -3,6 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { motion } from "motion/react"
+import { getAssetPath } from "@/lib/utils"
 
 import { outsideTours } from "@/lib/tours"
 
@@ -22,7 +23,7 @@ export function DayTripsTeaser() {
     >
       {/* Background image */}
       <Image
-        src="/tours/transylvania.jpg"
+        src={getAssetPath("/tours/transylvania.jpg")}
         alt="Transylvania — Day trips from Bucharest"
         fill
         className="object-cover object-center"

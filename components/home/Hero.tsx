@@ -7,15 +7,16 @@ import { motion, useReducedMotion } from "motion/react"
 import { Send, ChevronLeft, ChevronRight } from "lucide-react"
 import { useIsMobile } from "@/hooks/use-mobile"
 import { useRouter } from "next/navigation"
+import { getAssetPath } from "@/lib/utils"
 
 const heroCards = [
-  { title: "Belle Époque\nElegance",        subtitle: "Architecture & French Influence",   image: "/tours/little-paris.png", href: "/tours/belle-epoque-elegance" },
-  { title: "Shadows of\nthe Past",           subtitle: "Rise & Fall of a Dictator",          image: "/tours/communist.png", href: "/tours/communist-shadows" },
-  { title: "Legends &\nSecret Passages",     subtitle: "Where Vlad the Impaler Ruled",       image: "/tours/old-town.png", href: "/tours/bucharest-old-town" },
-  { title: "Bucharest's Soul\n& Traditions", subtitle: "Authentic Flavors at Obor",          image: "/tours/markets.png", href: "/tours" },
-  { title: "A Culinary\nOdyssey",            subtitle: "Heritage Tastes & Historic Feasts",  image: "/tours/traditional-food.png", href: "/tours/taste-of-romania" },
-  { title: "The New\nWave Kitchen",          subtitle: "Avant-Garde Fusion & Innovations",   image: "/tours/contemporary-food.png", href: "/tours/new-wave-kitchen" },
-  { title: "Lakes, Parks\n& Wellness",       subtitle: "Rejuvenation at Therme & Herastrau", image: "/tours/nature-wellness.png", href: "/tours" },
+  { title: "Belle Époque\nElegance",        subtitle: "Architecture & French Influence",   image: getAssetPath("/tours/little-paris.png"), href: "/tours/belle-epoque-elegance" },
+  { title: "Shadows of\nthe Past",           subtitle: "Rise & Fall of a Dictator",          image: getAssetPath("/tours/communist.png"), href: "/tours/communist-shadows" },
+  { title: "Legends &\nSecret Passages",     subtitle: "Where Vlad the Impaler Ruled",       image: getAssetPath("/tours/old-town.png"), href: "/tours/bucharest-old-town" },
+  { title: "Bucharest's Soul\n& Traditions", subtitle: "Authentic Flavors at Obor",          image: getAssetPath("/tours/markets.png"), href: "/tours" },
+  { title: "A Culinary\nOdyssey",            subtitle: "Heritage Tastes & Historic Feasts",  image: getAssetPath("/tours/traditional-food.png"), href: "/tours/taste-of-romania" },
+  { title: "The New\nWave Kitchen",          subtitle: "Avant-Garde Fusion & Innovations",   image: getAssetPath("/tours/contemporary-food.png"), href: "/tours/new-wave-kitchen" },
+  { title: "Lakes, Parks\n& Wellness",       subtitle: "Rejuvenation at Therme & Herastrau", image: getAssetPath("/tours/nature-wellness.png"), href: "/tours" },
 ]
 
 const CARD_W = 200
@@ -74,7 +75,7 @@ export function Hero() {
         className="absolute inset-0 z-0"
       >
         <Image
-          src="/athenaeum-hero.webp"
+          src={getAssetPath("/athenaeum-hero.webp")}
           alt="Romanian Athenaeum, Bucharest"
           fill
           sizes="100vw"
