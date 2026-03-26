@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next"
 import { allTours } from "@/lib/tours"
 
+export const dynamic = "force-static"
+
 const baseUrl = "https://discoverromaniawithcorina.com"
 
 export default function sitemap(): MetadataRoute.Sitemap {
