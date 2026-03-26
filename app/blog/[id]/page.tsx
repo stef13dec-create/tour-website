@@ -5,44 +5,42 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 import { Metadata } from "next"
 
+import { getBlogPostById, blogPosts } from "@/lib/blog"
+import { notFound } from "next/navigation"
+
+export async function generateStaticParams() {
+  return blogPosts.map((post) => ({
+    id: post.id,
+  }))
+}
+
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
-  void id; // will be used when data is fetched dynamically
+  const post = getBlogPostById(id);
+  
+  if (!post) {
+    return {
+      title: "Post Not Found | Discover Romania with Corina",
+    }
+  }
+
   return {
-    title: "Top 10 Things to Do in Bucharest | Discover Romania with Corina",
-    description: "Bucharest, often called the Little Paris of the East, is a city of contrasts. Discover the top things to do for first-time visitors.",
+    title: `${post.title} | Discover Romania with Corina`,
+    description: post.excerpt,
     openGraph: {
-      title: "Top 10 Things to Do in Bucharest for First-Time Visitors",
-      description: "Discover the top things to do in Bucharest — from the Palace of Parliament to the charming cobblestone streets of the Old Town.",
-      images: [{ url: "https://picsum.photos/seed/bucharest-blog/1920/1080" }],
+      title: post.title,
+      description: post.excerpt,
+      images: [{ url: post.image }],
     },
   }
 }
 
-type ContentBlock =
-  | { type: "paragraph"; text: string }
-  | { type: "heading"; text: string }
-
 export default async function BlogPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  void id; // will be used when data is fetched dynamically
+  const post = getBlogPostById(id);
 
-  // Mock data
-  const post = {
-    title: "Top 10 Things to Do in Bucharest for First-Time Visitors",
-    content: [
-      { type: "paragraph", text: "Bucharest, often called the \"Little Paris of the East,\" is a city of contrasts. From the massive Palace of Parliament to the charming cobblestone streets of the Old Town, there's something for everyone." },
-      { type: "heading",   text: "1. Explore the Old Town (Centrul Vechi)" },
-      { type: "paragraph", text: "Start your journey in the historic center. It's a vibrant mix of history, architecture, and nightlife. Don't miss the Stavropoleos Monastery, a stunning example of Brâncovenesc style." },
-      { type: "heading",   text: "2. Visit the Palace of Parliament" },
-      { type: "paragraph", text: "The second-largest administrative building in the world is a must-see. Its sheer scale and opulent interiors are a testament to Romania's complex past." },
-      { type: "heading",   text: "3. Relax in Herastrau Park" },
-      { type: "paragraph", text: "Escape the city bustle in this expansive park built around a large lake. Rent a boat, visit the Village Museum, or simply enjoy a coffee by the water." },
-    ] as ContentBlock[],
-    image: "https://picsum.photos/seed/bucharest-blog/1920/1080",
-    date: "May 15, 2026",
-    category: "City Guide",
-    author: "Corina"
+  if (!post) {
+    notFound();
   }
 
   return (

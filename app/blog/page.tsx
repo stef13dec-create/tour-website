@@ -3,32 +3,7 @@ import { Footer } from "@/components/layout/Footer"
 import Image from "next/image"
 import Link from "next/link"
 
-const blogPosts = [
-  {
-    id: "top-10-bucharest",
-    title: "Top 10 Things to Do in Bucharest for First-Time Visitors",
-    excerpt: "Discover the must-see attractions, hidden gems, and best local food spots in Romania's vibrant capital city.",
-    image: "https://picsum.photos/seed/bucharest-blog/800/600",
-    date: "May 15, 2026",
-    category: "City Guide"
-  },
-  {
-    id: "transylvania-myths",
-    title: "Beyond Dracula: The Real History of Transylvania",
-    excerpt: "Separate fact from fiction as we explore the medieval castles, fortified churches, and true legends of Transylvania.",
-    image: "https://picsum.photos/seed/transylvania-blog/800/600",
-    date: "June 2, 2026",
-    category: "History & Culture"
-  },
-  {
-    id: "romanian-food-guide",
-    title: "A Foodie's Guide to Traditional Romanian Cuisine",
-    excerpt: "From Sarmale to Papanasi, learn about the delicious traditional dishes you must try during your visit to Romania.",
-    image: "https://picsum.photos/seed/romanian-food-blog/800/600",
-    date: "June 18, 2026",
-    category: "Food & Wine"
-  }
-]
+import { blogPosts } from "@/lib/blog"
 
 export default function BlogPage() {
   return (
