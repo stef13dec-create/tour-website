@@ -82,10 +82,14 @@ export default function ToursPage() {
             </svg>
           </Link>
           <Link 
-            href={`/book?tour=${tour.id}`}
-            className="inline-flex items-center justify-center px-6 py-2 bg-[#FCD116] text-black rounded-full font-bold tracking-widest uppercase text-[10px] hover:bg-[#FCD116]/90 transition-all shadow-[0_0_12px_rgba(252,209,22,0.2)] hover:scale-105 active:scale-95"
+            href={tour.isCustomQuote ? `/contact?tour=${tour.id}` : `/book?tour=${tour.id}`}
+            className={`inline-flex items-center justify-center px-6 py-2 rounded-full font-bold tracking-widest uppercase text-[10px] transition-all active:scale-95 shadow-md ${
+              tour.isCustomQuote 
+                ? "bg-white/10 text-white border border-white/20 hover:bg-white/20" 
+                : "bg-[#FCD116] text-black hover:bg-[#FCD116]/90 shadow-[0_0_12px_rgba(252,209,22,0.2)] hover:scale-105"
+            }`}
           >
-            Book
+            {tour.isCustomQuote ? "Inquire" : "Book"}
           </Link>
         </div>
       </div>

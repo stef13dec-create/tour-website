@@ -192,36 +192,46 @@ export default async function TourDetailPage({ params }: { params: Promise<{ id:
           <div className="w-full lg:w-1/3">
             <div className="sticky top-32 bg-white/[0.02] backdrop-blur-xl border border-white/5 p-10 rounded-3xl">
               <div className="mb-8">
-                <span className="text-white/50 font-light tracking-widest uppercase text-xs block mb-2">Price per person</span>
+                <span className="text-white/50 font-light tracking-widest uppercase text-xs block mb-2">
+                  {tour.isCustomQuote ? "Pricing" : "Price per person"}
+                </span>
                 <div className="text-5xl font-serif font-light text-white">{tour.price}</div>
               </div>
 
               <div className="space-y-6 mb-10">
                 <div className="flex items-center gap-4 text-white/70 font-light pb-6 border-b border-white/5">
                   <Calendar size={20} strokeWidth={1.5} className="text-white/50" />
-                  <span>Available Daily</span>
+                  <span>{tour.availability || "Available Daily"}</span>
                 </div>
                 <div className="flex items-center gap-4 text-white/70 font-light pb-6 border-b border-white/5">
                   <Users size={20} strokeWidth={1.5} className="text-white/50" />
-                  <span>Max 8 people per group</span>
+                  <span>
+                    {tour.groupSizeMin && tour.groupSizeMax 
+                      ? `Min: ${tour.groupSizeMin}, Max: ${tour.groupSizeMax} persons` 
+                      : tour.groupSizeMax 
+                        ? `Max ${tour.groupSizeMax} people per group`
+                        : "Small group experience"}
+                  </span>
                 </div>
                 <div className="flex items-center gap-4 text-white/70 font-light pb-6 border-b border-white/5">
                   <Clock size={20} strokeWidth={1.5} className="text-white/50" />
-                  <span>Free cancellation up to 48h</span>
+                  <span>{tour.cancellationPolicy || "Free cancellation up to 48h"}</span>
                 </div>
               </div>
 
               <Button asChild className="w-full h-14 rounded-full bg-white text-black hover:bg-white/90 transition-colors font-light tracking-widest uppercase text-xs mb-4">
-                <Link href={`/book?tour=${tour.id}`}>
-                  Book Now
+                <Link href={tour.isCustomQuote ? `/contact?tour=${tour.id}` : `/book?tour=${tour.id}`}>
+                  {tour.isCustomQuote ? "Request a Quote" : "Book Now"}
                 </Link>
               </Button>
               
-              <Button asChild variant="outline" className="w-full h-14 rounded-full bg-transparent border-white/20 text-white hover:bg-white hover:text-black transition-colors font-light tracking-widest uppercase text-xs">
-                <Link href="/contact">
-                  Ask a Question
-                </Link>
-              </Button>
+              {!tour.isCustomQuote && (
+                <Button asChild variant="outline" className="w-full h-14 rounded-full bg-transparent border-white/20 text-white hover:bg-white hover:text-black transition-colors font-light tracking-widest uppercase text-xs">
+                  <Link href="/contact">
+                    Ask a Question
+                  </Link>
+                </Button>
+              )}
             </div>
           </div>
 

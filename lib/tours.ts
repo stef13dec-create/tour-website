@@ -17,6 +17,11 @@ export interface Tour {
   overview?: string
   included?: string[]
   excluded?: string[]
+  availability?: string
+  groupSizeMin?: number
+  groupSizeMax?: number
+  cancellationPolicy?: string
+  isCustomQuote?: boolean
   itinerary?: { time: string; title: string; desc: string }[]
 }
 
@@ -38,16 +43,21 @@ export const allTours: Tour[] = [
     featured: true,
     overview: "Walk the grand boulevards of Bucharest's Belle Époque era — Calea Victoriei, the Romanian Athenaeum, and the city's finest Art Nouveau facades. Discover why Bucharest was once called 'The Little Paris of the East'.",
     included: [
-      "Licensed English-speaking guide",
-      "Entrance fees to selected landmarks",
-      "Traditional pastry tasting",
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off (if centrally located)",
+      "4 hrs of walking guided tour",
+      "Traditional Luca Pastry tasting",
       "Bottled water"
     ],
     excluded: [
-      "Hotel pickup and drop-off",
-      "Lunch and personal expenses",
-      "Gratuities (optional)"
-    ]
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "communist-shadows",
@@ -65,15 +75,22 @@ export const allTours: Tour[] = [
     featured: true,
     overview: "Explore the monumental legacy of communism in Bucharest — the Palace of Parliament, Revolution Square, and the haunting story of Ceaușescu's regime. Understand how 40 years of communism reshaped the city's face and soul.",
     included: [
-      "Licensed English-speaking guide",
-      "Skip-the-line access to Palace of Parliament",
-      "Transportation between sites",
-      "Bottled water"
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off (if centrally located)",
+      "5 hrs of walking guided tour",
+      "Traditional Luca Pastry tasting",
+      "Bottled water",
+      "Skip-the-line access to Palace of Parliament"
     ],
     excluded: [
-      "Personal expenses",
-      "Gratuities (optional)"
-    ]
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "new-wave-kitchen",
@@ -91,16 +108,23 @@ export const allTours: Tour[] = [
     featured: true,
     overview: "An evening tour through Bucharest's most exciting contemporary restaurants and wine bars. Experience the 'New Wave' of Romanian gastronomy, where traditional ingredients meet modern techniques and world-class wines.",
     included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off (if centrally located)",
+      "4 hrs of walking guided tour",
+      "Traditional Luca Pastry tasting",
+      "Bottled water",
       "Gourmet dinner (multiple courses)",
-      "Premium wine pairings",
-      "Licensed foodie guide",
-      "Short walking tour of the nightlife district"
+      "Premium wine pairings"
     ],
     excluded: [
-      "Transportation to/from the meeting point",
-      "Extra drinks",
-      "Gratuities (optional)"
-    ]
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "bucharest-old-town",
@@ -115,7 +139,23 @@ export const allTours: Tour[] = [
     reviews: 89,
     tags: ["City Tour", "Walking"],
     category: "inside",
-    overview: "Walk through the cobblestone streets of the Lipscani district, discovering medieval ruins, 19th-century architecture, and vibrant local cafes. This tour also delves into the stark contrasts of Bucharest's communist past, exploring how history shaped the city you see today."
+    overview: "Walk through the cobblestone streets of the Lipscani district, discovering medieval ruins, 19th-century architecture, and vibrant local cafes. This tour also delves into the stark contrasts of Bucharest's communist past, exploring how history shaped the city you see today.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off (if centrally located)",
+      "4 hrs of walking guided tour",
+      "Traditional Luca Pastry tasting",
+      "Bottled water"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "taste-of-romania",
@@ -130,7 +170,24 @@ export const allTours: Tour[] = [
     reviews: 78,
     tags: ["Gastronomy", "Wine"],
     category: "inside",
-    overview: "Savor the rich and authentic flavors of traditional Romanian cuisine. From hearty sarmale and artisan cheeses to an exclusive tasting of distinguished local wines, this tour is a feast for the senses that highlights the country's culinary heritage."
+    overview: "Savor the rich and authentic flavors of traditional Romanian cuisine. From hearty sarmale and artisan cheeses to an exclusive tasting of distinguished local wines, this tour is a feast for the senses that highlights the country's culinary heritage.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off (if centrally located)",
+      "5 hrs of walking guided tour",
+      "Traditional Luca Pastry tasting",
+      "Bottled water",
+      "Traditional food & wine samples"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   // Outside Bucharest
   {
@@ -140,25 +197,30 @@ export const allTours: Tour[] = [
     duration: "Full Day (12h)",
     location: "Peles & Bran Castles, Brasov",
     image: getAssetPath("/tours/transylvania.jpg"),
-    price: "From €120",
+    price: "Custom Quote",
     priceAmount: 120,
+    isCustomQuote: true,
     rating: 5.0,
     reviews: 124,
     tags: ["History", "Castles", "Bestseller"],
     category: "outside",
     overview: "Step into the heart of Transylvania and discover the legends that made Romania famous. This full-day tour from Bucharest takes you through the scenic Carpathian Mountains to visit the stunning Peles Castle, the infamous Bran Castle (Dracula's Castle), and the medieval city of Brasov.",
     included: [
-      "Hotel pickup and drop-off in Bucharest",
-      "Licensed English-speaking guide",
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
       "Transportation by air-conditioned minivan",
-      "Skip-the-line access (tickets not included)",
-      "Bottled water"
+      "Bottled water",
+      "Traditional Luca Pastry tasting"
     ],
     excluded: [
       "Entrance fees to Peles and Bran Castles",
       "Lunch",
-      "Gratuities"
+      "Personal expenses"
     ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before",
     itinerary: [
       { time: "08:00 AM", title: "Departure from Bucharest", desc: "Pickup from your hotel." },
       { time: "10:30 AM", title: "Peles Castle", desc: "Visit the royal summer residence in Sinaia." },
@@ -174,13 +236,30 @@ export const allTours: Tour[] = [
     duration: "Half Day (7–8h)",
     location: "Slanic Prahova Salt Mine",
     image: getAssetPath("/tours/salt-mine.png"),
-    price: "From €35",
+    price: "Custom Quote",
     priceAmount: 35,
+    isCustomQuote: true,
     rating: 4.6,
     reviews: 387,
     tags: ["Nature", "Unique", "Halotherapy"],
     category: "outside",
-    overview: "Descend into the massive caverns of Slanic Prahova, the largest salt mine in Europe. Often referred to as the 'Underground Cathedral', its breathtaking scale, pristine air, and unique microclimate provide a relaxing and visually stunning halotherapy experience."
+    overview: "Descend into the massive caverns of Slanic Prahova, the largest salt mine in Europe. Often referred to as the 'Underground Cathedral', its breathtaking scale, pristine air, and unique microclimate provide a relaxing and visually stunning halotherapy experience.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
+      "Transportation by air-conditioned vehicle",
+      "Traditional Luca Pastry tasting",
+      "Bottled water"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "danube-delta",
@@ -189,13 +268,30 @@ export const allTours: Tour[] = [
     duration: "Full Day (14h)",
     location: "Tulcea — UNESCO Delta",
     image: getAssetPath("/tours/danube-delta.jpg"),
-    price: "From €85",
+    price: "Custom Quote",
     priceAmount: 85,
+    isCustomQuote: true,
     rating: 4.7,
     reviews: 214,
     tags: ["Wildlife", "Nature", "UNESCO"],
     category: "outside",
-    overview: "Embark on an epic journey to the UNESCO-protected Danube Delta. Cruise through serene canals and pristine lakes on a specialized safari boat, observing wild horses, pelican colonies, and an incredibly diverse ecosystem untouched by modern development."
+    overview: "Embark on an epic journey to the UNESCO-protected Danube Delta. Cruise through serene canals and pristine lakes on a specialized safari boat, observing wild horses, pelican colonies, and an incredibly diverse ecosystem untouched by modern development.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
+      "Safari boat tour in the Delta",
+      "Traditional Luca Pastry tasting",
+      "Bottled water"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "constanta-black-sea",
@@ -204,13 +300,30 @@ export const allTours: Tour[] = [
     duration: "Full Day (10–12h)",
     location: "Constanta & Mamaia Beach",
     image: getAssetPath("/tours/black-sea.png"),
-    price: "From €55",
+    price: "Custom Quote",
     priceAmount: 55,
+    isCustomQuote: true,
     rating: 4.5,
     reviews: 302,
     tags: ["History", "Beach", "Summer"],
     category: "outside",
-    overview: "Travel to the sunny Black Sea coast to explore the ancient Roman ruins of Tomis (modern-day Constanta). Tour the iconic Art Nouveau Casino right on the waterfront, before ending the day relaxing on the golden sands of Mamaia resort."
+    overview: "Travel to the sunny Black Sea coast to explore the ancient Roman ruins of Tomis (modern-day Constanta). Tour the iconic Art Nouveau Casino right on the waterfront, before ending the day relaxing on the golden sands of Mamaia resort.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
+      "Transportation by air-conditioned vehicle",
+      "Traditional Luca Pastry tasting",
+      "Bottled water"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "mogosoaia-snagov",
@@ -219,13 +332,29 @@ export const allTours: Tour[] = [
     duration: "Half Day (5–7h)",
     location: "Mogosoaia Palace & Snagov",
     image: getAssetPath("/tours/mogosoaia.png"),
-    price: "From €30",
+    price: "Custom Quote",
     priceAmount: 30,
+    isCustomQuote: true,
     rating: 4.6,
     reviews: 178,
     tags: ["Dracula", "Palaces", "Easy"],
     category: "outside",
-    overview: "Escape the city for a peaceful half-day trip to two serene locations. Marvel at the Brâncovenesc architecture of the beautiful Mogosoaia Palace, and take a tranquil boat ride to Snagov Monastery, the legendary final resting place of Vlad the Impaler (Dracula)."
+    overview: "Escape the city for a peaceful half-day trip to two serene locations. Marvel at the Brâncovenesc architecture of the beautiful Mogosoaia Palace, and take a tranquil boat ride to Snagov Monastery, the legendary final resting place of Vlad the Impaler (Dracula).",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
+      "Traditional Luca Pastry tasting",
+      "Bottled water"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "transfagarasan-road",
@@ -234,13 +363,30 @@ export const allTours: Tour[] = [
     duration: "Full Day (14h)",
     location: "Carpathian Mountains",
     image: getAssetPath("/tours/transfagarasan.jpg"),
-    price: "From €150",
+    price: "Custom Quote",
     priceAmount: 150,
+    isCustomQuote: true,
     rating: 5.0,
     reviews: 56,
     tags: ["Nature", "Scenic Drive"],
     category: "outside",
-    overview: "Experience what has been called 'the best driving road in the world'. This full-day adventure takes you winding through the dramatic peaks of the Carpathian Mountains, offering jaw-dropping panoramic views, glacial lakes, and thrilling switchbacks."
+    overview: "Experience what has been called 'the best driving road in the world'. This full-day adventure takes you winding through the dramatic peaks of the Carpathian Mountains, offering jaw-dropping panoramic views, glacial lakes, and thrilling switchbacks.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
+      "Transportation by air-conditioned vehicle",
+      "Traditional Luca Pastry tasting",
+      "Bottled water"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   },
   {
     id: "sibiu-sighisoara",
@@ -249,13 +395,30 @@ export const allTours: Tour[] = [
     duration: "2 Days / 1 Night",
     location: "Transylvania",
     image: getAssetPath("/tours/medieval-transylvania.jpg"),
-    price: "From €350",
+    price: "Custom Quote",
     priceAmount: 350,
+    isCustomQuote: true,
     rating: 4.9,
     reviews: 42,
     tags: ["Multi-day", "Culture"],
     category: "outside",
-    overview: "Immerse yourself fully in the magic of Transylvania on this 2-day expedition. Wander the colorful squares of Sibiu (a former European Capital of Culture), and spend the night in the perfectly preserved, fairy-tale citadel of Sighisoara, birthplace of Vlad Dracula."
+    overview: "Immerse yourself fully in the magic of Transylvania on this 2-day expedition. Wander the colorful squares of Sibiu (a former European Capital of Culture), and spend the night in the perfectly preserved, fairy-tale citadel of Sighisoara, birthplace of Vlad Dracula.",
+    included: [
+      "Authorized guide (English / Spanish / French)",
+      "Hotel pick-up & drop-off from Bucharest",
+      "Traditional Luca Pastry tasting",
+      "Bottled water",
+      "1 night accommodation in medieval citadel"
+    ],
+    excluded: [
+      "Entrance fees",
+      "Lunch",
+      "Personal expenses"
+    ],
+    availability: "Saturday – Sunday",
+    groupSizeMin: 2,
+    groupSizeMax: 8,
+    cancellationPolicy: "Free cancellation up to 48 hours before"
   }
 ]
 
